@@ -77,9 +77,9 @@ class IntgradImageExplainer(ImageExplainer):
         # Initialize TensorArray outside loop to collect gradients.    
         gradient_batches = tf.TensorArray(tf.float32, size=m_steps+1)
         # Iterate alphas range and batch computation for speed, memory efficiency, and scaling to larger m_steps.
-        for alpha in tf.range(0, len(alphas), batch_size):
+        for alpha in tf.range(0, alphas.shape[0], batch_size):
             from_ = alpha
-            to = tf.minimum(from_ + batch_size, len(alphas))
+            to = tf.minimum(from_ + batch_size, alphas.shape[0])
             alpha_batch = alphas[from_:to]
             # 2. Generate interpolated inputs between baseline and input.
             interpolated_path_input_batch = self.interpolate_images(baseline=baseline,
