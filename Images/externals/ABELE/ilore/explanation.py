@@ -80,7 +80,7 @@ class ImageExplanation(Explanation):
             num_prototypes: number of prototypes to return
             return_latent: if True return latent representation
             return_diff: If True return the difference with the query image
-            features: list of the features int he latent space to use, if none use all
+            features: list of the features in the latent space to use, if none use all
         """
         img2show = np.copy(self.img)
         if not self.use_rgb:
@@ -141,6 +141,8 @@ class ImageExplanation(Explanation):
                     prototypes.append(pimg)
                     lprototypes.append(lpimg)
                     diff_masks.append(diff)
+        if len(prototypes)==0:
+            raise Exception('No Prototypes Found, please increase number of samples in the neighbourhod generation')
 
         if return_latent and return_diff:
             return prototypes, lprototypes, diff_masks

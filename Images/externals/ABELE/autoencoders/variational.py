@@ -103,7 +103,8 @@ class VariationalAutoencoderMnist(VariationalAutoencoder):
         mu = Dense(self.latent_dim)(eh)
         log_var = Dense(self.latent_dim)(eh)
         latent_repr = Lambda(sampling)([mu, log_var])
-        self.encoder = Model(x, [mu, log_var, latent_repr])
+        #self.encoder = Model(x, [mu, log_var, latent_repr])
+        self.encoder = Model(x, latent_repr)
 
         # Build Decoder
         di = Input(shape=(self.latent_dim, ))
@@ -116,7 +117,7 @@ class VariationalAutoencoderMnist(VariationalAutoencoder):
         self.decoder = Model(di, do)
 
         # Build Vae
-        outputs = self.decoder(self.encoder(x)[2])
+        outputs = self.decoder(self.encoder(x))
         self.autoencoder = Model(x, outputs)
 
         def vae_loss(x, tx):
