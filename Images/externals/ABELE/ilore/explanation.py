@@ -65,8 +65,7 @@ class ImageExplanation(Explanation):
         """
 
         img2show = np.copy(self.img)
-        prototypes, diff_list = self.get_prototypes_respecting_rule(num_prototypes=samples, features=features,
-                                                                    return_diff=True)
+        prototypes, diff_list = self.get_prototypes_respecting_rule(num_prototypes=samples, features=features, return_diff=True)
 
         diff = np.median(diff_list, axis=0)
 
@@ -142,7 +141,7 @@ class ImageExplanation(Explanation):
                     lprototypes.append(lpimg)
                     diff_masks.append(diff)
         if len(prototypes)==0:
-            raise Exception('No Prototypes Found, please increase number of samples in the neighbourhod generation')
+            raise Exception('No Prototypes Found, please increase number of samples in the neighbourhood generation')
 
         if return_latent and return_diff:
             return prototypes, lprototypes, diff_masks
