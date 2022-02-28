@@ -316,12 +316,12 @@ class ImageGeneticAdversarialGeneratorLatent(ImageAdversarialGeneratorLatent):
             mutation_mask = np.random.choice([False, True], self.autoencoder.latent_dim, p=[1 - self.mutpb, self.mutpb])
             mutator = np.random.normal(size=self.autoencoder.latent_dim)
             mutated[mutation_mask] = mutator[mutation_mask]
-            if self.autoencoder.discriminator is not None:
-                discriminator_out = self.autoencoder.discriminator.predict(mutated.reshape(1, -1))[0][0]
-                if discriminator_out > self.valid_thr:
-                    return mutated,
-            else:
-                return mutated,
+            #if self.autoencoder.discriminator is not None:
+            #    discriminator_out = self.autoencoder.discriminator.predict(mutated.reshape(1, -1))[0][0]
+            #    if discriminator_out > self.valid_thr:
+            #        return mutated,
+            #else:
+            #    return mutated,
 
     def fitness_equal(self, x, x1):
         feature_similarity_score = 1.0 - cdist(x.reshape(1, -1), x1.reshape(1, -1), metric=self.metric).ravel()[0]
