@@ -243,15 +243,19 @@ class ImageExplanation(Explanation):
                     diff = rgb2gray(diff) 
 
                     values, counts = np.unique(np.abs(diff), return_counts=True)
-                    sorted_counts = sorted(counts, reverse=True)
-                    sorted_counts_idx = np.argsort(counts)[::-1]
-                    values = values[sorted_counts_idx]
-                    idx_knee = get_knee_point_value(np.log(sorted_counts))
+                    th_val_l = np.quantile(values,0.1)
+                    th_val_u = np.quantile(values,0.9)
 
-                    th_val = values[idx_knee]
-                    gap = np.abs(127.5 - th_val)
-                    th_val_l = 127.5 - gap
-                    th_val_u = 127.5 + gap
+                    #sorted_counts = sorted(counts, reverse=True)
+
+                    #sorted_counts_idx = np.argsort(counts)[::-1]
+                    #values = values[sorted_counts_idx]
+                    #idx_knee = get_knee_point_value(np.log(sorted_counts))
+
+                    #th_val = values[idx_knee]
+                    #gap = np.abs(127.5 - th_val)
+                    #th_val_l = 127.5 - gap
+                    #th_val_u = 127.5 + gap
 
                     diff[np.where((th_val_l <= diff) & (diff <= th_val_u))] = 127.5
 
