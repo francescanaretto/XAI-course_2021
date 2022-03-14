@@ -15,8 +15,8 @@ class ABELEImageExplanation(ImageExplanation):
     def getExemplars(self, num_prototypes):
         return self.exp.get_prototypes_respecting_rule(num_prototypes=num_prototypes)
 
-    def getCounterExemplars(self):
-        return self.exp.get_counterfactual_prototypes()
+    def getCounterExemplars(self, eps, interp):
+        return self.exp.get_counterfactual_prototypes(eps=eps, interp=interp)
 
     def getRules(self):
         return self.exp.rstr()
