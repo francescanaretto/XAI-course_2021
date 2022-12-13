@@ -6,4 +6,3 @@ Images/.ipynb_checkpoints
 Imagenet_original.ipynb
 MNIST_original.ipynb
 Images/datasets/cifar_x.p
-Images/models/imagenette_resnet18.pt
