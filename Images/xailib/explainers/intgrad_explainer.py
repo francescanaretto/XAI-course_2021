@@ -135,7 +135,7 @@ class IntgradImageExplainer(ImageExplainer):
                 input = self.preprocessing(input)
                 input.requires_grad=True
                 output = self.predict(input)
-                index = np.ones((output.size()[0], 1)) * target_label_idx
+                index = np.ones((output.shape()[0], 1)) * target_label_idx
                 index = torch.tensor(index, dtype=torch.int64)
                 if cuda:
                     index = index.cuda()
