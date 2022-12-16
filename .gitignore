@@ -2,6 +2,7 @@ Tabular/.ipynb_checkpoints
 Images/.ipynb_checkpoints
 *.ipynb_checkpoints
 *.DS_Store
+*.pyc
 
 Imagenet_original.ipynb
 MNIST_original.ipynb
