@@ -152,9 +152,9 @@ class IntgradImageExplainer(ImageExplainer):
         image = np.array(image)
         scaled_inputs = [baseline + (float(i) / steps) * (image - baseline) for i in range(0, steps + 1)]
         grads, _ = self.compute_outputs_and_gradients(scaled_inputs, target_label_idx, cuda)
-        avg_grads = np.average(grads[:-1], axis=0).squeeze(0)
+        avg_grads = np.average(grads[:-1], axis=0)
         avg_grads = np.transpose(avg_grads, (1, 2, 0))
-        delta_X = (self.preprocessing(image) - self.preprocessing(baseline)).detach().squeeze(0).cpu().numpy()
+        delta_X = (self.preprocessing(image) - self.preprocessing(baseline)).detach().cpu().numpy()
         delta_X = np.transpose(delta_X, (1, 2, 0))
         integrated_grad = delta_X * avg_grads
         return integrated_grad

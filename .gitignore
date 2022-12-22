@@ -4,6 +4,11 @@ Images/.ipynb_checkpoints
 *.DS_Store
 *.pyc
 
+Images/datasets/MNIST
+
+Hands_on_solutions.ipynb
 Imagenet_original.ipynb
 MNIST_original.ipynb
+CIFAR_original.ipynb
+Abele_custom_model.ipynb
 Images/datasets/cifar_x.p

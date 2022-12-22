@@ -6,6 +6,8 @@ import tensorflow as tf
 import torch
 import matplotlib.animation as animation
 from matplotlib import rc
+import matplotlib
+matplotlib.rcParams['animation.embed_limit'] = 2**32
 
 class ImageInsDel():
     def __init__(self, predict, mode, step, substrate_fn):
@@ -92,9 +94,9 @@ class ImageInsDel():
                 scores[i] = pred[0, c]
                 title.set_text('{} {:.1f}%, P={:.4f}'.format(xlabel, 100 * i / n_steps, scores[i]))
                 line.set_data(np.arange(i+1) / n_steps, scores[:i+1])
-                image = (start[0].detach().cpu().numpy()).astype(int)
+                image = start[0,:].detach().cpu().numpy()
                 if rgb:
-                    ax[0].imshow(np.stack([image[0,:,:],image[1,:,:],image[2,:,:]],axis=-1))
+                    ax[0].imshow(image.transpose(1,2,0))
                 else:
                     ax[0].imshow(image, cmap='gray')
                 coords = salient_order[:, self.step * i:self.step * (i + 1)]
@@ -109,11 +111,10 @@ class ImageInsDel():
             return [scores, anim]
 
         else:
-
             for i in range(n_steps+1):
                 pred = torch.tensor(self.predict(start.numpy()))
                 scores[i] = pred[0, c]
                 if i < n_steps:
-                    coords = salient_order[:, self.step * i:self.step * (i + 1)]
+                    coords = salient_order[:, self.step * i : self.step * (i + 1)]
                     start.cpu().numpy().reshape(1, CH, HW)[0, :, coords] = finish.cpu().numpy().reshape(1, CH, HW)[0, :, coords]
             return scores
